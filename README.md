@@ -42,26 +42,104 @@ tests/
 - Queue: in-process abstraction with persistence-backed run state
 - Contracts: Python-first with TypeScript mirror definitions
 
-## Getting Started
+## Local Environment Setup
 
-### Prerequisites
+### 1) Prerequisites
+
+Install the following locally:
 
 - Node.js 20+
 - pnpm 9+
 - Python 3.12+
 - uv
+- Docker + Docker Compose (recommended for Postgres and local service orchestration)
 
-### Install root JS dependencies
+### 2) Clone and enter the repository
+
+```bash
+git clone <your-fork-or-repo-url>
+cd programming_showcase
+```
+
+### 3) Setup frontend workspace dependencies
 
 ```bash
 pnpm install
 ```
 
-### Create Python virtual environment
+### 4) Setup Python environment
 
 ```bash
 uv venv
+source .venv/bin/activate
 uv sync
+```
+
+> On Windows PowerShell, activate with:
+>
+> ```powershell
+> .venv\Scripts\Activate.ps1
+> ```
+
+### 5) Optional: environment variables
+
+When API/worker implementation lands, configure a local env file:
+
+```bash
+cp .env.example .env
+```
+
+(If `.env.example` is not present yet, this step can be skipped for now.)
+
+## Running the Project Locally (as implementation lands)
+
+The scaffold is intentionally minimal. As app code is added in upcoming phases, use the following command pattern:
+
+### Start frontend
+
+```bash
+pnpm --filter ./apps/web dev
+```
+
+### Start API
+
+```bash
+uv run --project apps/api uvicorn main:app --reload
+```
+
+### Start worker
+
+```bash
+uv run --project apps/worker python -m worker.main
+```
+
+### Start local infrastructure (recommended)
+
+```bash
+docker compose -f infra/docker/docker-compose.yml up -d
+```
+
+## Running Tests and Checks
+
+### Python tests
+
+```bash
+uv run pytest
+```
+
+### Python lint/type checks
+
+```bash
+uv run ruff check .
+uv run mypy .
+```
+
+### Frontend tests and lint/type checks
+
+```bash
+pnpm test
+pnpm lint
+pnpm typecheck
 ```
 
 ## Current Status
