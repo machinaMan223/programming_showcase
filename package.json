@@ -1,0 +1,11 @@
+{
+  "name": "signal-forge",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "lint": "echo 'lint targets will be added in phase slices'",
+    "test": "echo 'test targets will be added in phase slices'",
+    "typecheck": "echo 'typecheck targets will be added in phase slices'"
+  }
+}
